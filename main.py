@@ -12,5 +12,5 @@ else:
 portfolio = load_portfolio()
 display_portfolio(portfolio)
 
-curr_val = calculate_portfolio_value(portfolio)
-print(f"{curr_val:.2f}")
+portfolio_value = calculate_portfolio_value(portfolio)
+print(portfolio_value)

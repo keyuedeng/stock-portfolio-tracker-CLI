@@ -23,16 +23,32 @@ def add_holding(portfolio_data, ticker, date, quantity, price):
         }]
 
 def calculate_portfolio_value(portfolio_data):
-    curr_val = 0
+    results = {}
+
     for ticker, purchases in portfolio_data.items():
-        ticker_quantity = 0
+        total_shares = 0
+        curr_val = 0
+        cost_basis = 0
+
         for purchase in purchases:
-            ticker_quantity += purchase['quantity']
-        # call api client
-        print(f"fetchign price for {ticker}...")
+            total_shares += purchase['quantity']
+            cost_basis += purchase['quantity'] * purchase['purchasePrice']
+
         price, error = get_curr_price(ticker)
-        print(f"result: price = {price}, error={error}")
-        curr_val += ticker_quantity * price
-    return curr_val
+        if error:
+            print(f"Warning: Could not fetch price for {ticker}: {error}")
+            continue
 
+        curr_val += total_shares * price
+        pnl_dollar = curr_val - cost_basis
+        pnl_percent = 100 * pnl_dollar/cost_basis
 
+        results[ticker] = {
+            "total_shares": total_shares,
+            "cost_basis": cost_basis,
+            "current_value": curr_val,
+            "pnl_dollar": pnl_dollar,
+            "pnl_percent": pnl_percent
+        }
+    
+    return results
