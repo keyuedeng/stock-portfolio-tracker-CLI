@@ -7,12 +7,10 @@ def get_curr_price(ticker):
         # check if data exists 
         if not stock.info:
             return None, "Could not fetch data for ticker"
-        
-        # check if price exists in data
-        if 'currentPrice' not in stock.info:
-            return None, "Price not available for this ticker"
 
-        price = stock.info.get('currentPrice')
+        price = stock.info.get('currentPrice') or \
+                stock.info.get('regularMarketPrice') or \
+                stock.info.get('previousClose')
         return price, None # returns in format (price, error)
     
     except KeyError: #keyerror is when you try to access a dicitonary key that doesn't exist

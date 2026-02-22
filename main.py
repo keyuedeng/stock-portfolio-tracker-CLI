@@ -12,5 +12,5 @@ else:
 portfolio = load_portfolio()
 display_portfolio(portfolio)
 
-add_holding(portfolio, "TSLA", "2024-02-15", 20, 250.00)
-save_portfolio(portfolio)
+curr_val = calculate_portfolio_value(portfolio)
+print(f"{curr_val:.2f}")

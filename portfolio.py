@@ -1,3 +1,5 @@
+from api_client import get_curr_price
+
 def display_portfolio(portfolio_data):
     print("Portfolio Holdings:")
     print("---"*15)
@@ -19,3 +21,18 @@ def add_holding(portfolio_data, ticker, date, quantity, price):
             "quantity": quantity,
             "purchasePrice": price
         }]
+
+def calculate_portfolio_value(portfolio_data):
+    curr_val = 0
+    for ticker, purchases in portfolio_data.items():
+        ticker_quantity = 0
+        for purchase in purchases:
+            ticker_quantity += purchase['quantity']
+        # call api client
+        print(f"fetchign price for {ticker}...")
+        price, error = get_curr_price(ticker)
+        print(f"result: price = {price}, error={error}")
+        curr_val += ticker_quantity * price
+    return curr_val
+
+
