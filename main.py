@@ -1,6 +1,6 @@
 from api_client import get_curr_price
-from storage import load_portfolio
-from portfolio import display_portfolio
+from storage import *
+from portfolio import *
 
 price, error = get_curr_price("AAPL")
 
@@ -11,3 +11,6 @@ else:
 
 portfolio = load_portfolio()
 display_portfolio(portfolio)
+
+add_holding(portfolio, "TSLA", "2024-02-15", 20, 250.00)
+save_portfolio(portfolio)

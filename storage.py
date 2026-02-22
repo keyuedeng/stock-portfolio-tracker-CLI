@@ -13,3 +13,6 @@ def load_portfolio():
         print("Error: Failed to decode JSON from the file.")
         return {}
 
+def save_portfolio(portfolio_data):
+    with open("data/portfolio.json","w") as f:
+        json.dump(portfolio_data, f, indent=4)
