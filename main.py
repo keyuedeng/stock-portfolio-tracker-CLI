@@ -3,7 +3,52 @@ from storage import *
 from portfolio import *
 
 
-portfolio = load_portfolio()
+print("Welcome to your Portfolio Tracker")
+print("Commands: view, add [ticker] [qty] [price] [date], remove [ticker]")
+print("Type 'exit' to exit")
+print("-" * 60)
 
-portfolio_value = calculate_portfolio_value(portfolio)
-display_portfolio_summary(portfolio_value)
+while True:
+    user_input = input("> ").strip()
+
+    if not user_input:
+        continue
+
+    # split input into parts
+    parts = user_input.split()
+    command = parts[0].lower()
+    
+    if command == "exit":
+        print("Goodbye!")
+        break
+    
+    elif command == "view":
+        portfolio = load_portfolio()
+        portfolio_value = calculate_portfolio_value(portfolio)
+        display_portfolio_summary(portfolio_value)
+    
+    elif command == "add":
+        try: 
+            if len(parts) < 5:
+                print("Usage: add [ticker] [qty] [price] [date]")
+            else:
+                ticker = parts[1]
+                quantity = int(parts[2])
+                price = float(parts[3])
+                date = parts[4]
+
+                portfolio = load_portfolio()
+                add_holding(portfolio, ticker, date, quantity, price)
+                save_portfolio(portfolio)
+                print(f"Added {quantity} shares of {ticker}")
+        except IndexError:
+            print("Usage: add [ticker] [qty] [price] [date]")
+        except ValueError:
+            print("Error: quantity must be a number, price must be a number")
+        
+    elif command == "remove":
+        pass
+
+    else:
+        print("Unknown command")
+
