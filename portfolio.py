@@ -22,6 +22,14 @@ def add_holding(portfolio_data, ticker, date, quantity, price):
             "purchasePrice": price
         }]
 
+def remove_holding(portfolio_data, ticker):
+    if ticker in portfolio_data:
+        del portfolio_data[ticker]
+        print(f"Removed {ticker} from portfolio")
+    else:
+        print(f"{ticker} not in portfolio")
+
+
 def calculate_portfolio_value(portfolio_data):
     results = {}
 

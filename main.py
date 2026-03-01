@@ -47,7 +47,14 @@ while True:
             print("Error: quantity must be a number, price must be a number")
         
     elif command == "remove":
-        pass
+        if len(parts) != 2:
+            print("Usage: remove [ticker]")
+        else:
+            ticker = parts[1].upper()
+
+            portfolio = load_portfolio()
+            remove_holding(portfolio, ticker)
+            save_portfolio(portfolio)
 
     else:
         print("Unknown command")
