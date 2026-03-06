@@ -1,7 +1,7 @@
 from api_client import get_curr_price
 from storage import *
 from portfolio import *
-
+from alerts import *
 
 print("Welcome to your Portfolio Tracker")
 print("Commands: view, add [ticker] [qty] [price] [date], remove [ticker]")
@@ -59,6 +59,11 @@ while True:
             portfolio = load_portfolio()
             remove_holding(portfolio, ticker)
             save_portfolio(portfolio)
+    
+    elif command == "alert":
+        if parts[1] == "list":
+            alerts_data = load_alerts()
+            list_alerts(alerts_data)
 
     else:
         print("Unknown command")
