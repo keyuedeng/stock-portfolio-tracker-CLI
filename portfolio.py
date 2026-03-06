@@ -1,6 +1,6 @@
 from api_client import get_curr_price
 
-def display_portfolio(portfolio_data):
+def list_holdings(portfolio_data):
     print("Portfolio Holdings:")
     print("---"*15)
     for ticker,data in portfolio_data.items():

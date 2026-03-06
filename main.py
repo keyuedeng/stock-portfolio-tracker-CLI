@@ -21,6 +21,10 @@ while True:
     if command == "exit":
         print("Goodbye!")
         break
+
+    elif command == "list":
+        portfolio = load_portfolio()
+        list_holdings(portfolio)
     
     elif command == "view":
         portfolio = load_portfolio()
