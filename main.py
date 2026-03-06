@@ -61,9 +61,18 @@ while True:
             save_portfolio(portfolio)
     
     elif command == "alert":
-        if parts[1] == "list":
+        if len(parts) < 2:
+            print("Usage: alert [list|add|remove|check]")
+        elif parts[1] == "list":
             alerts_data = load_alerts()
             list_alerts(alerts_data)
+        elif parts[1] == "remove": 
+            if len(parts) < 3:
+                print("Usage: alert remove [ticker]")
+            else:
+                alerts_data = load_alerts()
+                alerts_data = remove_alerts(alerts_data, parts[2].upper())
+                save_alerts(alerts_data)
 
     else:
         print("Unknown command")
